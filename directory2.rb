@@ -30,7 +30,7 @@ def print(students)
   students.each_with_index do |student, i|
     puts "#{i + 1}. #{student[:name]} (#{
       student[:cohort]} cohort), Hobby: #{
-      student[:hobby]}, Country of Birth: #{student[:cob]}"
+      student[:hobby]}, Country of Birth: #{student[:cob]}".center(100)
   end
 end
 
