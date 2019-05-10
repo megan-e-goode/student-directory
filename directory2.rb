@@ -22,12 +22,11 @@ def print(students)
   puts "Please type a single letter to filter student's names: "
   first_letter = gets.chomp.downcase
 
+  students.select! { |student| student[:name].start_with?(first_letter) &&
+    student[:name].length < 12 }
+
   students.each_with_index do |student, i|
-    if first_letter.empty?
-      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    elsif student[:name].start_with?(first_letter)
-      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
