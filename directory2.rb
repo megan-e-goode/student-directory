@@ -19,8 +19,13 @@ def print_header
 end
 
 def print(students)
+  puts "Please type a single letter to filter student's names: "
+  first_letter = gets.chomp.downcase
+
   students.each_with_index do |student, i|
-    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name].start_with?(first_letter)
+      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
