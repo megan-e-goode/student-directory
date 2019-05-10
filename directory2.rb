@@ -21,11 +21,7 @@ def print_header
 end
 
 def print(students)
-  puts "Please type a single letter to filter student's names: "
-  first_letter = gets.chomp.downcase
-
-  students.select! { |student| student[:name].start_with?(first_letter) &&
-    student[:name].length < 12 }
+  students.sort_by! { |student| student[:cohort]}
 
   students.each_with_index do |student, i|
     puts "#{i + 1}. #{student[:name]} (#{
