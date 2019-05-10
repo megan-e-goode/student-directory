@@ -23,7 +23,9 @@ def print(students)
   first_letter = gets.chomp.downcase
 
   students.each_with_index do |student, i|
-    if student[:name].start_with?(first_letter)
+    if first_letter.empty?
+      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    elsif student[:name].start_with?(first_letter)
       puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
