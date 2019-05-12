@@ -21,7 +21,11 @@ def print_header
 end
 
 def print(students)
+  puts "Please enter a cohort to display: "
+  cohort_selected = gets.chomp
+
   students.sort_by! { |student| student[:cohort]}
+  students.select! { |student| student[:cohort] == cohort_selected }
 
   students.each_with_index do |student, i|
     puts "#{i + 1}. #{student[:name]} (#{
@@ -50,6 +54,7 @@ def input_students()
     students << { name: name, cohort: cohort.to_s , hobby: "n/a", cob: "England"}
     puts "Now we have #{students.count} students"
     # get another name from the user
+    puts "Please enter the name of the student"
     name = gets.chomp
   end
   # return the array of students
