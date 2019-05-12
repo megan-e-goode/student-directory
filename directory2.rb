@@ -35,7 +35,8 @@ def print(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  names.count > 1 ? plural = "students" : plural = "student"
+  puts "Overall, we have #{names.count} great #{plural}"
 end
 
 def input_students()
