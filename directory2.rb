@@ -42,7 +42,7 @@ end
 def input_students()
   puts "To finish, just return twice"
   puts "Please enter the name of the student"
-  name = gets.chomp
+  name = gets.gsub("\n", "")
 
   students = []
 
