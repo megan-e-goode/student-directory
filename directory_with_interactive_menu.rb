@@ -28,7 +28,7 @@ end
 def interavtive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -61,19 +61,19 @@ end
 def input_students
   puts "To finish, just return twice"
   puts "Please enter the name of the student"
-  name = gets.gsub("\n", "")
+  name = STDIN.gets.gsub("\n", "")
 
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Please enter the cohort month"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     cohort = :november unless !cohort.empty?
 
     @students << { name: name, cohort: cohort.to_s , hobby: "n/a", cob: "England"}
     puts "Now we have #{@students.count} students"
     # get another name from the user
     puts "Please enter the name of the student"
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
 end
 
@@ -87,8 +87,20 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exsists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exsist
+    puts "Sorry, #{filename} does not exist."
+    exit # quit the program
+  end
+end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
       @students << { name: name, cohort: cohort.to_sym }
@@ -96,4 +108,5 @@ def load_students
   file.close
 end
 
+try_load_students
 interavtive_menu
