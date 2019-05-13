@@ -1,5 +1,9 @@
 @students = [] # Available to all methods
 
+def create_students_list(student_hash)
+  @students << student_hash
+end
+
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
@@ -69,7 +73,7 @@ def input_students
     cohort = STDIN.gets.chomp
     cohort = :november unless !cohort.empty?
 
-    @students << { name: name, cohort: cohort.to_s , hobby: "n/a", cob: "England"}
+    create_students_list({ name: name, cohort: cohort.to_s , hobby: "n/a", cob: "England"})
     puts "Now we have #{@students.count} students"
     # get another name from the user
     puts "Please enter the name of the student"
@@ -80,7 +84,7 @@ end
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:cohort], student[:hobby], student[:cob]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
@@ -102,8 +106,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-      @students << { name: name, cohort: cohort.to_sym }
+    name, cohort, hobby, cob = line.chomp.split(',')
+      create_students_list({ name: name, cohort: cohort.to_sym, hobby: hobby, cob: cob })
   end
   file.close
 end
